@@ -20,7 +20,7 @@ module.exports = {
       //regla para cargar archivos css.
       {
         test: /\.css$/,
-        use:["style-loader", "css-loader",]
+        use:["style-loader", "css-loader","postcss-loader"]
       },
       
       //regla para archivos svg
@@ -43,7 +43,6 @@ module.exports = {
       },
     ]
   },
-
   resolve:{
     extensions:[".js",".jsx"],
   },
@@ -52,7 +51,6 @@ module.exports = {
     maxEntrypointSize: 580000,
     maxAssetSize:580000,
   },
-  devtool:false,
   devServer: {
     proxy: {
       "/api": {
@@ -64,7 +62,7 @@ module.exports = {
         },
       },
     },
-    hot: true,
+    hot:true,
     static: path.resolve(__dirname, "public"),
   },
 };
