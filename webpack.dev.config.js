@@ -1,5 +1,5 @@
 const path = require('path');
-
+const dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: "development",
@@ -7,6 +7,7 @@ module.exports = {
   output:{
     path: path.join(__dirname,"public"),
     filename: "bundle.js",
+    publicPath:'/',
   },
 
   module:{
@@ -45,6 +46,9 @@ module.exports = {
   },
   resolve:{
     extensions:[".js",".jsx"],
+    alias: {
+      process: 'process/browser',
+    },
   },
   performance:{
     hints: process.env.NODE_ENV === "production" ? "error":false,
@@ -62,7 +66,11 @@ module.exports = {
         },
       },
     },
+    historyApiFallback: true,
     hot:true,
     static: path.resolve(__dirname, "public"),
   },
+  plugins:[
+    new dotenv()
+  ]
 };

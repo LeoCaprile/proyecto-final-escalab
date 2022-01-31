@@ -5,7 +5,7 @@ import Cocktail from './Cocktail';
 const Cocktails = ({cocktailApiUrl}) => {
 
   const [cocktails, setCocktails] = useState([]);
-
+  
   useEffect(()=>{
     getCocktails()
   },[])
@@ -17,7 +17,7 @@ const Cocktails = ({cocktailApiUrl}) => {
   }
 
   return (cocktails.map(({idDrink, ...cocktail})=>{
-    return <Cocktail key={idDrink} {...cocktail}></Cocktail>
+    return <Cocktail key={idDrink} idDrink={idDrink} {...cocktail}></Cocktail>
   }));
 };
 
