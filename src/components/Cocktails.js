@@ -12,7 +12,8 @@ const Cocktails = ({cocktailApiUrl}) => {
 
   const getCocktails = async () =>{
     const {data} = await axios.get(cocktailApiUrl)
-    const cocktailsData = await data.drinks.splice(0,8)
+    const cocktailsData = await data.drinks;
+    cocktailsData.length = 8;
     setCocktails(cocktailsData)
   }
 

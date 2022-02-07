@@ -1,6 +1,6 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import React, { useState, useContext, useEffect } from 'react';
-import { auth } from '../firebase/firebase.utils';
+import { auth} from '../firebase/firebase.utils';
 
 
 const AuthContext = React.createContext(); 
@@ -15,11 +15,14 @@ const AuthProvider = ({children}) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState();
 
+  function logout(){
+    signOut(auth).then(()=>{
+      console.log('sesion cerrada')
+    });
+  }
 
-  function signup(email, password){
-    
-    return createUserWithEmailAndPassword(auth,email,password);
-
+ function signup(email, password){
+  return createUserWithEmailAndPassword(auth,email,password);
   }
 
   function login(email,password){
@@ -28,7 +31,7 @@ const AuthProvider = ({children}) => {
 
   useEffect(()=>{
 
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged(user => {
       setCurrentUser(user)
       setLoading(false)
     })
@@ -38,7 +41,8 @@ const AuthProvider = ({children}) => {
   const value = {
     currentUser,
     signup,
-    login
+    login,
+    logout
   }
 
   return (

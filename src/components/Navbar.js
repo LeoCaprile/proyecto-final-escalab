@@ -1,13 +1,10 @@
-import { signOut } from 'firebase/auth';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,} from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../contexts/AuthContext';
-import { auth } from '../firebase/firebase.utils';
 
-
-
-const Button = styled.li`
+//styled div
+const Button = styled.div`
 padding:0.5rem;
 border-radius: 200px;
 cursor:pointer;
@@ -18,21 +15,22 @@ cursor:pointer;
 
 const Navbar = () => {
 
-  const {currentUser} = useAuth();
+  const {currentUser,logout} = useAuth();
 
-  function handleSignOut(){
-    signOut(auth)
+  const reloadPage = () => {
+    window.location.reload();
   }
 
   return <nav className='flex gap-5 justify-center bg-green-300 text-lg pb-2'> 
-    <ul className='flex'>
-    <Link to='/'><Button>Cocktails</Button></Link>
-    <Link to='/Categorias'><Button>Categorias</Button></Link>
-    <Link to='/'><Button>Cocktail Aleatorio</Button></Link>
-    {currentUser?<Link to='/'><Button>Mis Favoritos</Button></Link>:''}
-    {currentUser?<Button onClick={()=>{handleSignOut()}}>Cerrar Sesion</Button>:<Link to='/login'><Button>Iniciar sesion</Button></Link>}
     
-    </ul>
+    <Link to='/'><Button>Cocktails</Button></Link>
+    <Link to='/categories'><Button>Categorias</Button></Link>
+    <Link to='/ingredients'><Button>Ingredientes</Button></Link>
+    <Link to='/random'><Button>Cocktail Aleatorio</Button></Link>
+    {currentUser?<Link to='/favorites'><Button>Mis Favoritos</Button></Link>:''}
+    {currentUser?<Link to='/'><Button onClick={()=>{logout();reloadPage()}}>Cerrar Sesion</Button></Link>:<Link to='/login'><Button>Iniciar sesion</Button></Link>}
+    
+  
   </nav>;
 };
 
