@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {useAuth} from '../contexts/AuthContext'
 import { firestore } from '../firebase/firebase.utils';
-import { setDoc,doc, collection, getDoc} from 'firebase/firestore';
+import { setDoc,doc,getDoc} from 'firebase/firestore';
 
 import {ReactComponent as Star} from '../assets/star.svg'
 import { useHistory } from 'react-router-dom';
@@ -13,14 +13,9 @@ const Cocktail = ({strDrinkThumb,strDrink,idDrink}) => {
   const {currentUser} = useAuth();
   const history = useHistory();
 
-
-
- 
-useEffect(()=>{
-  
-    handleFavoriteOnRender(idDrink);
-    console.log('hola')
-},[currentUser])
+  useEffect(()=>{
+      handleFavoriteOnRender(idDrink);
+  },[currentUser])
 
 
 const getUserFavorites = async ()=>{
