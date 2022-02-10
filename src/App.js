@@ -10,6 +10,7 @@ import Favorites from './pages/Favorites';
 import Home from './pages/Home';
 import Ingredients from './pages/Ingredients';
 import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 import Signup from './pages/Signup';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <PrivaterRoute path='/favorites' component={Favorites}/>
       <Route path='/categories' component={Categories}/>
       <Route path='/ingredients' component={Ingredients}/>
+      <Route component={NotFound}></Route>
     </Switch>
     
     <Footer/>

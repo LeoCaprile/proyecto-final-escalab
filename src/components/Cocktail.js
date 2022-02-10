@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import {useAuth} from '../contexts/AuthContext'
+import { useAuth } from '../contexts/AuthContext'
 import { firestore } from '../firebase/firebase.utils';
-import { setDoc,doc,getDoc} from 'firebase/firestore';
+import { setDoc,doc,getDoc } from 'firebase/firestore';
 
-import {ReactComponent as Star} from '../assets/star.svg'
+import { ReactComponent as Star } from '../assets/star.svg'
 import { useHistory } from 'react-router-dom';
 
-const Cocktail = ({strDrinkThumb,strDrink,idDrink}) => {
 
-
-  const [star, setStar] = useState(false); 
-  const {currentUser} = useAuth();
-  const history = useHistory();
-
-  useEffect(()=>{
-      handleFavoriteOnRender(idDrink);
-  },[currentUser])
-
-
-const getUserFavorites = async ()=>{
+export const getUserFavorites = async (currentUser)=>{
   if(currentUser != null){
     const userFavoritesRef =  doc(firestore, 'users', currentUser.uid);
     const userDoc = await getDoc(userFavoritesRef);
@@ -33,13 +22,31 @@ const getUserFavorites = async ()=>{
   }else{
     return [];
   }
-  
 }
 
-const handleFavoriteOnRender = async (id) =>{
+const Cocktail = ({strDrinkThumb,strDrink,idDrink, ...otherData}) => {
+
+
+  const [star, setStar] = useState(false); 
+  const {currentUser} = useAuth();
+  const history = useHistory();
+
+  const cocktailData = {
+    idDrink:idDrink,
+    strDrink:strDrink,
+    strDrinkThumb:strDrinkThumb,
+    ...otherData,
+  }
+
+  useEffect(()=>{
+      handleFavoriteOnRender(cocktailData);
+  },[currentUser])
+
+
+const handleFavoriteOnRender = async (cocktailData) =>{
   
-  const favorites = await getUserFavorites();
-  if(favorites.find(favId => favId === id)){
+  const favorites = await getUserFavorites(currentUser);
+  if(favorites.find(favId => favId.idDrink === cocktailData.idDrink)){
     setStar(!star);
 }
 }
@@ -50,17 +57,17 @@ const handleFavoriteOnRender = async (id) =>{
   }
 
 
-  const handleFavorite = async(id) =>{
-   const favorites = await getUserFavorites();
-   if(favorites.find(favId => favId === id)){
+  const handleFavorite = async(cocktailData) =>{
+   const favorites = await getUserFavorites(currentUser);
+   if(favorites.find(favId => favId.idDrink === cocktailData.idDrink)){
     setStar(!star)
-    const newArr = favorites.filter((favId)=>favId !== id);
+    const newArr = favorites.filter((favId)=>favId.idDrink !== cocktailData.idDrink);
     await setDoc(doc(firestore,'users',currentUser.uid),{
       favorites:newArr,
     });
    }else{
     setStar(!star)
-    favorites.push(id);
+    favorites.push(cocktailData);
     await setDoc(doc(firestore,'users',currentUser.uid),{
       favorites:favorites,
     }); 
@@ -74,7 +81,7 @@ const handleFavoriteOnRender = async (id) =>{
       <img className='h-3/4 rounded-lg cursor-pointer' src={strDrinkThumb} alt='drink' loading='lazy'/>
       <div className='flex justify-around w-full'>
       <h1 className='font-bold text-2xl'>{strDrink}</h1>
-      <Star className={`self-center cursor-pointer ${star?'fill-yellow-400':'fill-yellow-100'}`} onClick={()=>{currentUser?handleFavorite(idDrink):handleUserNotLoggedIn()}} />
+      <Star className={`self-center cursor-pointer ${star?'fill-yellow-400':'fill-yellow-100'}`} onClick={()=>{currentUser?handleFavorite(cocktailData):handleUserNotLoggedIn()}} />
   
   </div>
 

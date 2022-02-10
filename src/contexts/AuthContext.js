@@ -13,7 +13,7 @@ export function useAuth(){
 const AuthProvider = ({children}) => {
 
   const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState();
+  
 
   function logout(){
     signOut(auth).then(()=>{
@@ -33,7 +33,7 @@ const AuthProvider = ({children}) => {
 
     auth.onAuthStateChanged(user => {
       setCurrentUser(user)
-      setLoading(false)
+  
     })
   })
 
