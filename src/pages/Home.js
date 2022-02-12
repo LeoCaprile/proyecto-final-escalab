@@ -3,6 +3,7 @@ import Cocktails from '../components/Cocktails';
 import { getLatestCocktails, getPopularCocktails } from '../constants';
 
 const Home = () => {
+
   return (
   <div>
   <h1 className='font-bold text-3xl text-center bg-green-200 p-5'>Cocktails populares! 📈</h1>

@@ -1,4 +1,5 @@
 const path = require('path');
+const { EnvironmentPlugin }  = require('webpack');
 
 module.exports = {
   mode: "production",
@@ -19,7 +20,7 @@ module.exports = {
       //regla para cargar archivos css.
       {
         test: /\.css$/,
-        use:["style-loader", "css-loader",]
+        use:["style-loader", "css-loader","postcss-loader"]
       },
       
       //regla para archivos svg
@@ -51,7 +52,6 @@ module.exports = {
     maxEntrypointSize: 580000,
     maxAssetSize:580000,
   },
-  devtool:false,
   devServer: {
     proxy: {
       "/api": {
@@ -66,4 +66,9 @@ module.exports = {
     hot: true,
     static: path.resolve(__dirname, "public"),
   },
+  plugins:[
+    new EnvironmentPlugin({
+      ...process.env
+    }),
+  ]
 };

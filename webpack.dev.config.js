@@ -6,7 +6,7 @@ module.exports = {
   entry: "./src/index.js",
   output:{
     path: path.join(__dirname,"public"),
-    filename: "bundle.js",
+    filename: "bundle.[hash].js",
     publicPath:'/',
   },
 
@@ -47,7 +47,7 @@ module.exports = {
   resolve:{
     extensions:[".js",".jsx"],
     alias: {
-      process: 'process/browser',
+      process: "process/browser",
     },
   },
   performance:{
