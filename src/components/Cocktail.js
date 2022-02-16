@@ -5,6 +5,7 @@ import { setDoc,doc,getDoc } from 'firebase/firestore';
 
 import { ReactComponent as Star } from '../assets/star.svg'
 import { useHistory } from 'react-router-dom';
+import Modal from './Modal';
 
 
 export const getUserFavorites = async (currentUser)=>{
@@ -28,6 +29,7 @@ const Cocktail = ({strDrinkThumb,strDrink,idDrink, ...otherData}) => {
 
 
   const [star, setStar] = useState(false); 
+  const [modal, setModal] = useState(false);
   const {currentUser} = useAuth();
   const history = useHistory();
 
@@ -72,15 +74,20 @@ const handleFavoriteOnRender = async (cocktailData) =>{
       favorites:favorites,
     }); 
    }
-   
   } 
+
+  const handleClick = () =>{
+    setModal(!modal)
+    document.querySelector('html').classList.add('overflow-y-hidden')
+  }
 
   return (
   <div className='flex flex-col gap-5 items-center justify-center p-5 shadow-lg rounded-3xl hover:scale-105 transition-transform duration-300 ease-linear'>
       
-      <img className='h-3/4 rounded-lg cursor-pointer' src={strDrinkThumb} alt='drink' loading='lazy'/>
+      <img onClick={handleClick} className='h-3/4 rounded-lg cursor-pointer' src={strDrinkThumb} alt='drink' loading='lazy'/>
       <div className='flex justify-around w-full'>
       <h1 className='font-bold text-2xl'>{strDrink}</h1>
+      <Modal isOpen={modal} setModal={setModal} cocktailData={cocktailData}></Modal>
       <Star className={`self-center cursor-pointer ${star?'fill-yellow-400':'fill-yellow-100'}`} onClick={()=>{currentUser?handleFavorite(cocktailData):handleUserNotLoggedIn()}} />
   
   </div>
