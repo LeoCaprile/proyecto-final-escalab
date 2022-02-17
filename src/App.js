@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Navbar from './components/Navbar';
 import PrivaterRoute from './components/PrivaterRoute';
 import AuthProvider from './contexts/AuthContext';
 import Categories from './pages/Categories';
@@ -20,7 +19,6 @@ function App() {
     <AuthProvider>
 
     <Header/>
-    <Navbar/>
     
     <Switch>
       <Route exact path='/' component={Home}/>

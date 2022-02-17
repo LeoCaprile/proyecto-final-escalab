@@ -9,7 +9,7 @@ const Modal = ({isOpen, setModal, cocktailData}) => {
   isOpen?
   createPortal(
 
-  <div className="flex overflow-y-auto overflow-x-hidden bg-black/50 fixed right-0 left-0 top-4 z-50 justify-center h-modal md:h-full md:inset-0">
+  <div className="flex overflow-y-auto md:overflow-x-hidden bg-black/50 fixed right-0 left-0 top-0 z-50 justify-center h-modal h-screen md:h-full md:inset-0">
     <div className="relative px-4 w-full max-w-2xl py-2">
         <div className="relative bg-white rounded-lg  shadow dark:bg-gray-700">
         
