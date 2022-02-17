@@ -38,8 +38,14 @@ const Navbar = () => {
     setIsOpen(false)
   }
 
+  
   const reloadPage = () => {
     window.location.reload();
+  }
+
+  const handleCerrarSesion = () =>{
+      logout(currentUser);
+      reloadPage();
   }
 
 
@@ -76,7 +82,7 @@ const Navbar = () => {
     <Link onClick={closeBurgerMenu} to='/ingredients'><Button>Ingredientes</Button></Link>
     <Link onClick={closeBurgerMenu} to='/random'><Button>Cocktail Aleatorio</Button></Link>
     {currentUser?<Link onClick={closeBurgerMenu} to='/favorites'><Button>Mis Favoritos</Button></Link>:''}
-    {currentUser?<Link onClick={closeBurgerMenu} to='/'><Button onClick={closeBurgerMenu}>Cerrar Sesion</Button></Link>:<Link onClick={()=>{setIsOpen(false)}} to='/login'><Button>Iniciar sesion</Button></Link>}
+    {currentUser?<Link onClick={closeBurgerMenu} to='/'><Button onClick={handleCerrarSesion}>Cerrar Sesion</Button></Link>:<Link onClick={()=>{setIsOpen(false)}} to='/login'><Button>Iniciar sesion</Button></Link>}
     
   
     </nav>
