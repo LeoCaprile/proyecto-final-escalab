@@ -30,7 +30,6 @@ const Signup = () => {
       history.push("/");
       
     }catch (error){
-      console.log(error)
       setLoading(false)
       setError('Error al crear la cuenta');
     }

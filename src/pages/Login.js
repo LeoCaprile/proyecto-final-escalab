@@ -26,7 +26,6 @@ const Login = () => {
 
     }catch(error){
       setError('El email y/o contraseña no existen')
-      console.log(error)
       setLoading(false)
     }
 

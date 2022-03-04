@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import ErrorBoundary from './components/ErrorBoundry';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import PrivaterRoute from './components/PrivaterRoute';
@@ -15,8 +16,8 @@ import Signup from './pages/Signup';
 function App() {
 
   return (
-    <Fragment>
-    <AuthProvider>
+  <AuthProvider>
+  <ErrorBoundary>
 
     <Header/>
     
@@ -32,8 +33,9 @@ function App() {
     
     <Footer/>
     
-    </AuthProvider>
-    </Fragment>
+  </ErrorBoundary>
+  </AuthProvider>
+   
   );
 
 }
