@@ -25,7 +25,7 @@ export default function Categories() {
   return (
   <div>
   <h1 className='font-bold text-3xl text-center bg-green-200 p-5'>Buscar cocktails por categorias </h1>
-  <div className='flex justify-center p-10'><OptionSelect setCategory={setCategory} options={categories} placeholder="poto"></OptionSelect></div> 
+  <div className='flex justify-center p-10'><OptionSelect setCategory={setCategory} options={categories}></OptionSelect></div> 
   <section className='grid grid-cols-1 md:grid-cols-4 gap-10 grid-rows-2 p-5 h-full'>
   {category && <Cocktails type='categories' category={category}></Cocktails>}
   </section>
